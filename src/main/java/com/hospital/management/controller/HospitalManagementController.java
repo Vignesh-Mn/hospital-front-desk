@@ -1,5 +1,7 @@
 package com.hospital.management.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +16,16 @@ import com.hospital.management.dto.AppointmentRequest;
 import com.hospital.management.dto.AppointmentResponseDto;
 import com.hospital.management.exception.HospitalManagementException;
 import com.hospital.management.service.HospitalManagementAppointmentService;
+import com.hospital.management.service.HospitalManagementSpecialistDetailsService;
 import com.hospital.management.service.HospitalManagementVacancyService;
+import com.hospital.management.vo.SpecialistDetailsProperties.SpecialistDetails;
 
 @RestController
 @RequestMapping("/hospitalmanagement")
 public class HospitalManagementController {
+
+	@Autowired
+	private HospitalManagementSpecialistDetailsService hospitalManagementSpecialistDetailsService;
 
 	@Autowired
 	private HospitalManagementAppointmentService hospitalManagementAppointmentService;
@@ -29,6 +36,14 @@ public class HospitalManagementController {
 	@GetMapping("/")
 	public String healCheck() {
 		return "I am alive !";
+	}
+
+	@GetMapping("/getspecialistDetails")
+	public ResponseEntity<List<SpecialistDetails>> getSpecaialistDetails(
+			@RequestParam(value = "hospitalname") final String hospitalName,
+			@RequestParam(value = "specialisttype") final String specialistType) throws HospitalManagementException {
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(hospitalManagementSpecialistDetailsService.getSpecialistDetails(hospitalName, specialistType));
 	}
 
 	@PostMapping("/book/appointment")

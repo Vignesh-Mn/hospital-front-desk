@@ -39,7 +39,8 @@ public class HospitalManagementUtil {
 				.filter(specialist -> specialist.getHospitalId() == hospital.getId())
 				.map(specialistDetails -> new HospitalSpecialListDetails(specialistDetails.getName(),
 						specialistDetails.getType(), specialistDetails.getAvailableDay(),
-						specialistDetails.getAvailableTime()))
+						specialistDetails.getAvailableTime(), specialistDetails.getHospitalId(),
+						specialistDetails.getAvailabilityStatus()))
 				.collect(Collectors.toList());
 	}
 }

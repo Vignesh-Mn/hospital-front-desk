@@ -16,4 +16,8 @@ public class HospitalSpecialListDetails {
 	private String avaialableDay;
 
 	private String availableTime;
+
+	private int hospitalId;
+
+	private String availabilityStatus;
 }
